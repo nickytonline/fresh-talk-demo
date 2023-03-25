@@ -1,4 +1,5 @@
-import { useState } from "preact/hooks";
+// More on Preact Signals at https://preactjs.com/guide/v10/signals/
+import { signal } from "@preact/signals";
 import { Button } from "../components/Button.tsx";
 
 interface CounterProps {
@@ -6,12 +7,31 @@ interface CounterProps {
 }
 
 export default function Counter(props: CounterProps) {
-  const [count, setCount] = useState(props.start);
+  const count = signal(props.start);
+
   return (
-    <div>
+    <div class="lemon-counter">
       <p>{count}</p>
-      <Button onClick={() => setCount(count - 1)}>-1</Button>
-      <Button onClick={() => setCount(count + 1)}>+1</Button>
+      <div class="lemon-counter_buttons">
+        <Button
+          aria-label="Add a Lemon"
+          onClick={() => {
+            count.value += 1;
+          }}
+        >
+          +
+        </Button>
+        <Button
+          aria-label="Remove a Lemon"
+          onClick={() => {
+            if (count.value !== 0) {
+              count.value -= 1;
+            }
+          }}
+        >
+          -
+        </Button>
+      </div>
     </div>
   );
 }
