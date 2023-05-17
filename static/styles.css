@@ -118,6 +118,7 @@ form[name="movie-rating"] [name="stars"] {
 
 .citrus-fruits {
   display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
   list-style: none;
 }
